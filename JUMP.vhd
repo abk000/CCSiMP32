@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date:    16:51:36 05/09/2018 
+-- Create Date:    23:13:34 05/25/2018 
 -- Design Name: 
--- Module Name:    MUX32 - Behavioral 
+-- Module Name:    JUMP - Behavioral 
 -- Project Name: 
 -- Target Devices: 
 -- Tool versions: 
@@ -29,24 +29,20 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity MUX32 is
-    Port ( I_MUX_0 : in  STD_LOGIC_VECTOR (31 downto 0);
-           I_MUX_1 : in  STD_LOGIC_VECTOR (31 downto 0);
-           I_MUX_Sel : in  STD_LOGIC;
-           O_MUX_Out : out  STD_LOGIC_VECTOR (31 downto 0));
-end MUX32;
+entity JUMP is
+    Port ( I_JUMP_26 : in  STD_LOGIC_VECTOR (25 downto 0);
+           I_JUMP_PC : in  STD_LOGIC_VECTOR (31 downto 0);
+           O_JUMP_32 : out  STD_LOGIC_VECTOR (31 downto 0));
+end JUMP;
 
-architecture Behavioral of MUX32 is
+architecture Behavioral of JUMP is
 
 begin
-	process(I_MUX_Sel)
-	begin 
-		if I_MUX_Sel = '0' then 
-		O_MUX_Out <= I_MUX_0;  
-		end if; 
-		if I_MUX_Sel = '1' then 
-		O_MUX_Out <= I_MUX_1; 
-		end if; 
-	end process; 
+	process(I_JUMP_26)
+	begin
+		O_JUMP_32(31 downto 28) <= I_JUMP_PC(31 downto 28);
+		O_JUMP_32(27 downto 2) <= I_JUMP_26;
+		O_JUMP_32(1 downto 0) <= "00";
+	end process;
 end Behavioral;
 

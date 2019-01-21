@@ -38,7 +38,11 @@ end PC;
 architecture Behavioral of PC is
 
 begin
-
-
+ process(I_PC_UPDATE)
+	begin
+		if(I_PC_UPDATE = '1') then
+		O_PC <= I_PC; 
+		end if; 
+	end process; 
 end Behavioral;
 

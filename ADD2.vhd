@@ -22,7 +22,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx primitives in this code.
@@ -38,7 +38,10 @@ end ADD2;
 architecture Behavioral of ADD2 is
 
 begin
-
-
+	process(I_ADD2_A, I_ADD2_B) 
+	begin 	
+		O_ADD2_Out <= std_logic_vector(unsigned(I_ADD2_A) + unsigned(I_ADD2_B));
+	
+	end process; 
 end Behavioral;
 

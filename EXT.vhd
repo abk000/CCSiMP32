@@ -40,7 +40,7 @@ begin
 process(I_EXT_16)
 	begin
 	
-	O_EXT_32 <= std_logic_vector(resize(unsigned(I_EXT_16), O_EXT_32'length)); 
+	O_EXT_32 <= std_logic_vector(resize(signed(I_EXT_16), O_EXT_32'length)); 
 	
 	end process; 
 end Behavioral;

@@ -22,7 +22,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx primitives in this code.
@@ -41,7 +41,36 @@ end ALU;
 architecture Behavioral of ALU is
 
 begin
-
-
+	process(I_ALU_EN, I_ALU_CTL, I_ALU_A, I_ALU_B) 
+	
+	variable result : integer := 0; 
+	
+	begin 
+		if I_ALU_EN = '1' then
+		--addu 
+			if I_ALU_CTL = "0010" then  
+			
+				result := to_integer(unsigned(I_ALU_A))+ to_integer(unsigned(I_ALU_B)); 
+				
+			end if;
+		--substract	
+			if I_ALU_CTL = "0110" then 
+			
+				result := to_integer(unsigned(I_ALU_A)) - to_integer(unsigned(I_ALU_B));
+			
+			end if;
+			
+		-- check for zero 
+			
+			if result = 1 then 
+			O_ALU_Zero <= '0'; 
+			elsif result = 0 then 
+			O_ALU_Zero <= '1';
+			end if; 
+			
+			O_ALU_Out <= std_logic_vector(to_unsigned(result, 32)); 
+ 			
+		end if; 
+	end process; 
 end Behavioral;
 

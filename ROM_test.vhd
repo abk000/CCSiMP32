@@ -2,15 +2,15 @@
 -- Company: 
 -- Engineer:
 --
--- Create Date:   17:58:01 05/09/2018
+-- Create Date:   15:55:24 05/06/2018
 -- Design Name:   
--- Module Name:   C:/Users/saeed/Documents/CSC 342/Lab 6/Group12_Lab7_Source/EXT_Test.vhd
--- Project Name:  Group12_Lab7_Source
+-- Module Name:   C:/Users/saeed/Documents/CSC 342/Lab 6/Group12_Lab6/ROM_test.vhd
+-- Project Name:  Group12_Lab6
 -- Target Device:  
 -- Tool versions:  
 -- Description:   
 -- 
--- VHDL Test Bench Created by ISE for module: EXT
+-- VHDL Test Bench Created by ISE for module: ROM
 -- 
 -- Dependencies:
 -- 
@@ -32,48 +32,51 @@ USE ieee.std_logic_1164.ALL;
 -- arithmetic functions with Signed or Unsigned values
 USE ieee.numeric_std.ALL;
  
-ENTITY EXT_Test IS
-END EXT_Test;
+ENTITY ROM_test IS
+END ROM_test;
  
-ARCHITECTURE behavior OF EXT_Test IS 
+ARCHITECTURE behavior OF ROM_test IS 
  
     -- Component Declaration for the Unit Under Test (UUT)
  
-    COMPONENT EXT
+    COMPONENT ROM
     PORT(
-         I_EXT_16 : IN  std_logic_vector(15 downto 0);
-         O_EXT_32 : OUT  std_logic_vector(31 downto 0)
+         I_ROM_EN : IN  std_logic;
+         I_ROM_ADDR : IN  std_logic_vector(31 downto 0);
+         O_ROM_DATA : OUT  std_logic_vector(31 downto 0)
         );
     END COMPONENT;
     
 
    --Inputs
-   signal I_EXT_16 : std_logic_vector(15 downto 0) := (others => '0');
+   signal I_ROM_EN : std_logic := '0';
+   signal I_ROM_ADDR : std_logic_vector(31 downto 0) := (others => '0');
 
  	--Outputs
-   signal O_EXT_32 : std_logic_vector(31 downto 0);
+   signal O_ROM_DATA : std_logic_vector(31 downto 0);
    -- No clocks detected in port list. Replace <clock> below with 
    -- appropriate port name 
  
---   constant <clock>_period : time := 10 ns;
+ --constant I_ROM_EN_period : time := 10 ns;
  
 BEGIN
  
 	-- Instantiate the Unit Under Test (UUT)
-   uut: EXT PORT MAP (
-          I_EXT_16 => I_EXT_16,
-          O_EXT_32 => O_EXT_32
+   uut: ROM PORT MAP (
+          I_ROM_EN => I_ROM_EN,
+          I_ROM_ADDR => I_ROM_ADDR,
+          O_ROM_DATA => O_ROM_DATA
         );
 
    -- Clock process definitions
-  -- <clock>_process :process
+--  I_ROM_EN_process :process
 --   begin
---		<clock> <= '0';
---		wait for <clock>_period/2;
---		<clock> <= '1';
---		wait for <clock>_period/2;
+--		I_ROM_EN <= '0';
+--		wait for I_ROM_EN_period/2;
+--		I_ROM_EN <= '1';
+--		wait for I_ROM_EN_period/2;
 --   end process;
- 
+
 
    -- Stimulus process
    stim_proc: process
@@ -81,11 +84,17 @@ BEGIN
       -- hold reset state for 100 ns.
       wait for 100 ns;	
 
---      wait for <clock>_period*10;
+      --wait for 10 ns;
 
-    -- insert stimulus here 
+      -- insert stimulus here
 
-	I_EXT_16 <= X"FFFF"; 
+		I_ROM_EN <= '1' ; 
+		I_ROM_ADDR <= X"00000000";
+	
+		wait for 10 ns;
+		
+		I_ROM_EN <= '0'; 
+		I_ROM_ADDR <= X"0000000B";
 
       wait;
    end process;
